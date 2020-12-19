@@ -1,0 +1,21 @@
+@import 'abstracts/variables';
+
+body {
+    background: var(--background);
+    height: 100vh;
+    color: var(--textDark);
+}
+
+.primary-color {
+    color: $primary !important;
+}
+
+.is-primary {
+    background-color: $primary !important;
+}
+
+@media only screen and (max-width: 768px) {
+    body {
+        background: #fff;
+    }
+}
