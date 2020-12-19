@@ -1,2 +1,8 @@
 // Update Bulma's global variables
+:root {
+    --background: rgb(247, 247, 247);
+    --textDark: hsla(0, 0%, 0%, 0.66);
+    --textLight: hsla(0, 0%, 0%, 0.33);
+}
+
 $primary: #FF715B;
