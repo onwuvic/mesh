@@ -5,4 +5,19 @@
     --textLight: hsla(0, 0%, 0%, 0.33);
 }
 
+//colors
 $primary: #FF715B;
+
+// screen sizes
+$bp-largest: 75em; // 1200px
+$bp-large: 68.75em; // 1100px
+$bp-medium: 65.25em; // 900px
+$bp-small: 37.5em; // 600px
+$bp-smallest: 31.25em; // 500px
+$table-cell-padding: 1.5em 1.75em;
+
+@media only screen and (max-width: $bp-small) {  
+    .table td, .table th {
+        padding: 0.5em 0.75em !important;
+    }
+}
