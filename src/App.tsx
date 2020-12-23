@@ -1,9 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import './assets/scss/main.scss';
-import Dashboard from './views/Dashboard/Dashboard';
+import Home from './views/Home/Home';
 import LoginPage from './views/LoginPage/LoginPage';
-import Order from './views/Order/Order';
 import SignupPage from './views/SignupPage/SignupPage';
 
 function App() {
@@ -11,7 +10,7 @@ function App() {
     <Router>
       <Switch>
         <Route exact path='/'>
-          <Redirect to="/dashboard" />
+          <Redirect to="/orders" />
         </Route>
         <Route exact path='/login'>
           <LoginPage />
@@ -19,11 +18,8 @@ function App() {
         <Route exact path='/signup'>
           <SignupPage />
         </Route>
-        <Route exact path='/dashboard'>
-          <Dashboard />
-        </Route>
-        <Route exact path='/order'>
-          <Order />
+        <Route exact path='/orders'>
+          <Home />
         </Route>
       </Switch>
     </Router>
