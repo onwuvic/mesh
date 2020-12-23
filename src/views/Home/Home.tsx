@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from '../../components/Footer/Footer';
 import NavBar from '../../components/NavBar/NavBar';
 import './Home.scss';
 
@@ -58,14 +59,7 @@ const Home = () => {
                 </div>
             </section>
         
-            <footer className="footer flex-margin-top-auto">
-                <div className="content has-text-centered">
-                    <p>
-                        Mesh Copyright &copy; 2020. 
-                        The source code is licensed <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. 
-                    </p>
-                </div>
-            </footer>
+            <Footer />
         </div>
     )
 }
