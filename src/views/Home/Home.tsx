@@ -1,38 +1,12 @@
 import React from 'react';
+import NavBar from '../../components/NavBar/NavBar';
 import './Home.scss';
 
 const Home = () => {
 
     return (
         <div className="main">
-            <nav className="navbar" role="navigation" aria-label="main navigation">
-                <div className="navbar-brand">
-                    <a className="navbar-item" href="#">
-                        Mesh
-                    </a>
-
-                    <a role="button" className="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-                        <span aria-hidden="true"></span>
-                        <span aria-hidden="true"></span>
-                        <span aria-hidden="true"></span>
-                    </a>
-                </div>
-
-                <div id="navbarBasicExample" className="navbar-menu">
-                    <div className="navbar-end">
-                        <span className="navbar-item">
-                           Hi, Victor
-                        </span>
-                        <div className="navbar-item">
-                            <div className="buttons">
-                                <a className="button is-light">
-                                    Log Out
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </nav>
+            <NavBar />
 
             <section className="section">
                 <div className="container">
