@@ -4,6 +4,7 @@ import './assets/scss/main.scss';
 import Dashboard from './views/Dashboard/Dashboard';
 import LoginPage from './views/LoginPage/LoginPage';
 import Order from './views/Order/Order';
+import SignupPage from './views/SignupPage/SignupPage';
 
 function App() {
   return (
@@ -14,6 +15,9 @@ function App() {
         </Route>
         <Route exact path='/login'>
           <LoginPage />
+        </Route>
+        <Route exact path='/signup'>
+          <SignupPage />
         </Route>
         <Route exact path='/dashboard'>
           <Dashboard />
