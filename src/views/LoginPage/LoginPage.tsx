@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import LandingPage from '../../components/LandingPage/LandingPage';
 import './LoginPage.scss';
 
 const LoginPage = () => {
@@ -7,16 +9,12 @@ const LoginPage = () => {
         <section className="section">
             <main className="container">
                 <div className="columns is-multiline is-centered contain">
-                    <div className="column left">
-                    <h1 className="title is-1 u-margin-bottom">Mesh</h1>
-                    <h2 className="subtitle colored is-4 primary-color">Take your orders beyond spreedsheet with Mesh</h2>
-                    <p>Mesh’s tools help you keep track of your orders,
-                        stay on top of what matters, and get things done.</p>
-                    </div>
+                    <LandingPage />
+
                     <div className="column right">
                         <h1 className="title is-4">Login</h1>
                         <p className="description">Welcome back!</p>
-                        <form>
+                        <form noValidate autoComplete="false">
                             <div className="field">
                                 <div className="control">
                                     <input className="input is-medium" type="email" placeholder="Email" name="email" />
@@ -30,6 +28,12 @@ const LoginPage = () => {
                                 </div>
                             </div>
                             <button type="submit" className="button is-block is-primary is-fullwidth is-medium">Login</button>
+                            <br />
+                            <small className="has-text-centered">
+                                <em>
+                                    Don't have an account <Link to={"/signup"} className="primary-color">Sign Up</Link>
+                                </em>
+                            </small>
                         </form> 
                     </div>
                 </div>

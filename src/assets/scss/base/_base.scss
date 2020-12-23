@@ -14,6 +14,11 @@ body {
     background-color: $primary !important;
 }
 
+small {
+    color: var(--textLight);
+    display: block;
+}
+
 @media only screen and (max-width: 768px) {
     body {
         background: #fff;
