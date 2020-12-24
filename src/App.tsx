@@ -12,13 +12,13 @@ function App() {
         <Route exact path='/'>
           <Redirect to="/orders" />
         </Route>
-        <Route exact path='/login'>
+        <Route path='/login'>
           <LoginPage />
         </Route>
-        <Route exact path='/signup'>
+        <Route path='/signup'>
           <SignupPage />
         </Route>
-        <Route exact path='/orders'>
+        <Route path='/orders'>
           <Home />
         </Route>
       </Switch>

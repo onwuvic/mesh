@@ -1,64 +1,34 @@
 import React from 'react';
+import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import Footer from '../../components/Footer/Footer';
 import NavBar from '../../components/NavBar/NavBar';
+import Order from '../../components/Order/Order';
+import Orders from '../../components/Orders/Orders';
 import './Home.scss';
 
+
 const Home = () => {
+    let { path } = useRouteMatch();
 
     return (
         <div className="main">
             <NavBar />
-
             <section className="section">
                 <div className="container">
                     <div className="card">
                         <div className="card-content">
-                            <span className="is-size-5">
-                                Ordered Lists
-                            </span>
-
-                            <table className="table is-fullwidth is-hoverable is-striped u-margin-top">
-                                <thead>
-                                    <tr>
-                                        <th>Title</th>
-                                        <th>Booking Date</th>
-                                        <th>Address</th>
-                                        <th>Customer</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Test Order 1</td>
-                                        <td>22.06.2019</td>
-                                        <td>Wriezener Str. 12</td>
-                                        <td>Emad Alam</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Test Order 1</td>
-                                        <td>22.06.2019</td>
-                                        <td>Wriezener Str. 12</td>
-                                        <td>Emad Alam</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Test Order 1</td>
-                                        <td>22.06.2019</td>
-                                        <td>Wriezener Str. 12</td>
-                                        <td>Emad Alam</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Test Order 1</td>
-                                        <td>22.06.2019</td>
-                                        <td>Wriezener Str. 12</td>
-                                        <td>Emad Alam</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <Switch>
+                                <Route exact path={path}>
+                                    <Orders />
+                                </Route>
+                                <Route path={`${path}/:id`}>
+                                    <Order />
+                                </Route>
+                            </Switch>
                         </div>
-                    </div>
-                    
+                    </div>     
                 </div>
             </section>
-        
             <Footer />
         </div>
     )
