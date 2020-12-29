@@ -1,6 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+import { UserContext } from '../../contexts/UserContext';
+import Firebase from '../../helpers/Firebase';
 
 const NavBar = () => {
+    const user = useContext(UserContext);
+    // const { name } = user
+    // console.log(name);
+    let history = useHistory();
+
+    function logOut(): void {
+        Firebase.logOut();
+        history.replace('/login') 
+    }
 
     return (
         <nav className="navbar" role="navigation" aria-label="main navigation">
@@ -23,9 +35,9 @@ const NavBar = () => {
                     </span>
                     <div className="navbar-item">
                         <div className="buttons">
-                            <a className="button is-light">
+                            <span className="button is-light" onClick={() => { logOut()}}>
                                 Log Out
-                            </a>
+                            </span>
                         </div>
                     </div>
                 </div>
