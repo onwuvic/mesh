@@ -2,7 +2,6 @@
 
 body {
     background: var(--background);
-    height: 100vh;
     color: var(--textDark);
 }
 
@@ -12,6 +11,10 @@ body {
 
 .is-primary {
     background-color: $primary !important;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
 }
 
 small {
