@@ -22,7 +22,7 @@ const LoginPage = () => {
     }
 
     return (
-        <section className="section">
+        <section className="section full-height">
             <main className="container">
                 <div className="columns is-multiline is-centered contain">
                     <LandingPage />
