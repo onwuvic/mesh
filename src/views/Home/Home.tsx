@@ -11,7 +11,7 @@ const Home = () => {
     let { path } = useRouteMatch();
 
     return (
-        <div className="main">
+        <div>
             <NavBar />
             <section className="section">
                 <div className="container">

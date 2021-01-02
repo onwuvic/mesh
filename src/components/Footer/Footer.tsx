@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
 
@@ -7,7 +8,7 @@ const Footer = () => {
             <div className="content has-text-centered">
                 <p>
                     Mesh Copyright &copy; 2020. 
-                    The source code is licensed <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. 
+                    The source code is licensed <Link className="primary-color" to={"http://opensource.org/licenses/mit-license.php"}>MIT</Link>. 
                 </p>
             </div>
         </footer>

@@ -5,7 +5,7 @@ import firebaseConfig from '../firebaseConfig';
 
 class Firebase {
     auth: any;
-    private firestore: any;
+    firestore: any;
 
     constructor() {
         firebase.initializeApp(firebaseConfig);
@@ -36,6 +36,18 @@ class Firebase {
         } catch (error) {
           console.error("Error fetching user", error);
         }
+    }
+
+    getAllOrders() {
+        let ordersList: any = [];
+        this.firestore.collection("/orders")
+            .onSnapshot((snapshot: any) => {
+                const listItems = snapshot.docs.map((doc: any) => ({
+                    id: doc.id,
+                    ...doc.data(),
+                }))
+            });
+        console.log('----orders', ordersList);
     }
 
     async generateUserDocument(user: any) {
