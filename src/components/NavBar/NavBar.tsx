@@ -1,44 +1,53 @@
-import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { useHistory, Link } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
 import Firebase from '../../helpers/Firebase';
 
 const NavBar = () => {
+    const [mobileMenu, setMobileMenu] = useState(false);
     const user = useContext(UserContext);
     // const { name } = user
     // console.log(name);
     let history = useHistory();
 
-    function logOut(): void {
+    const logOut = (): void => {
         Firebase.logOut();
         history.replace('/login') 
     }
 
+    const toggleMenu = (): void => {
+        setMobileMenu(!mobileMenu);
+    };
+
     return (
         <nav className="navbar" role="navigation" aria-label="main navigation">
-            <div className="navbar-brand">
-                <a className="navbar-item" href="#">
+            <div className="navbar-brand has-text-weight-bold">
+                <Link className="navbar-item primary-color" to={"/"}>
                     Mesh
-                </a>
+                </Link>
 
-                <a role="button" className="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <div 
+                    role="button" 
+                    className={`navbar-burger ${mobileMenu ? 'is-active' : ''}`} 
+                    aria-label="menu" 
+                    aria-expanded="false" 
+                    data-target="navbarBasicExample" 
+                    onClick={toggleMenu}>
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
-                </a>
+                </div>
             </div>
 
-            <div id="navbarBasicExample" className="navbar-menu">
+            <div id="navbarBasicExample" className={`navbar-menu ${mobileMenu ? 'is-active' : ''}`}>
                 <div className="navbar-end">
                     <span className="navbar-item">
                         Hi, Victor
                     </span>
                     <div className="navbar-item">
-                        <div className="buttons">
-                            <span className="button is-light" onClick={() => { logOut()}}>
-                                Log Out
-                            </span>
-                        </div>
+                        <span className="button is-primary is-small" onClick={() => { logOut()}}>
+                            Log Out
+                        </span>
                     </div>
                 </div>
             </div>
