@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Firebase from '../../helpers/Firebase';
+import Spinner from '../Spinner/Spinner';
 
 const Orders = () => {
     const [orders, setOrders] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+        setLoading(true);
         Firebase.firestore.collection("/orders")
             .onSnapshot((snapshot: any) => {
                 const listItems = snapshot.docs.map((doc: any) => ({
@@ -12,6 +15,7 @@ const Orders = () => {
                     ...doc.data(),
                 }))
                 setOrders(listItems);
+                setLoading(false);
             });
     }, []);
 
@@ -48,11 +52,17 @@ const Orders = () => {
 
     return (
         <div>
-            <span className="is-size-5">
-                Ordered Lists
-            </span>
+            {
+                loading ? (<Spinner />) : (
+                    <div>
+                        <span className="is-size-5">
+                            Ordered Lists
+                        </span>
 
-            { renderOrders() }        
+                        { renderOrders() }
+                    </div>
+                )  
+            }
         </div>            
     )
 }
