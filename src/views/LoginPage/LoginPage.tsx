@@ -2,22 +2,29 @@ import React, { useState } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import LandingPage from '../../components/LandingPage/LandingPage';
 import Firebase from '../../helpers/Firebase';
+import validate from '../../helpers/validations/LoginFormValidationRules';
+import useForm from '../../hooks/useForm';
 import './LoginPage.scss';
 
 const LoginPage = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    // const [error, setError] = useState(null);
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const { values, handleChange, handleSubmit, errors } = useForm({email: '', password: ''}, login, validate);
+
     let history = useHistory();
     let location = useLocation();
     let { from }: any = location.state || { from: { pathname: "/" } };
 
     async function login() {
+        const { email, password } = values;
+        setLoading(true);
+        setError(null);
         try {
             await Firebase.logIn(email, password);
             history.replace(from);
         } catch (error) {
-            alert(error.message);
+            setLoading(false);
+            setError(error.message);
         }
     }
 
@@ -30,38 +37,57 @@ const LoginPage = () => {
                     <div className="column right">
                         <h1 className="title is-4">Login</h1>
                         <p className="description">Welcome back!</p>
-                        <form noValidate autoComplete="off" onSubmit={(e) => {
-                            e.preventDefault();
-                            login();
-                        }}>
+                        {
+                            error && (
+                                <article className="message is-danger">
+                                    <div className="message-body">
+                                        { error }
+                                    </div>
+                                </article>
+                            ) 
+                        }
+                        <form noValidate autoComplete="off" onSubmit={handleSubmit}>
                             <div className="field">
                                 <div className="control">
                                     <input 
-                                        className="input is-medium" 
+                                        className={`input is-medium ${errors.email && 'is-danger'}` }
                                         type="email" 
                                         placeholder="Email" 
                                         name="email" 
                                         autoComplete="off" 
                                         autoFocus 
-                                        value={email} 
-                                        onChange={e => setEmail(e.target.value)}/>
-                                    <p className="help is-danger">Error message</p>
+                                        onChange={handleChange}
+                                        onBlur={handleChange}
+                                        value={values.email} 
+                                        required />
+                                    {
+                                        errors.email && (<p className="help is-danger">{ errors.email }</p>)
+                                    }
                                 </div>
                             </div>
                             <div className="field">
                                 <div className="control">
                                     <input 
-                                        className="input is-medium" 
+                                        className={`input is-medium ${errors.password && 'is-danger'}` } 
                                         type="password" 
                                         placeholder="Password" 
                                         name="password" 
                                         autoComplete="off" 
-                                        value={password} 
-                                        onChange={e => setPassword(e.target.value)}/>
-                                    <p className="help is-danger">Error Message</p>
+                                        onChange={handleChange}
+                                        onBlur={handleChange}
+                                        value={values.password} 
+                                        required />
+                                    {
+                                        errors.password && (<p className="help is-danger">{ errors.password }</p>)
+                                    }
                                 </div>
                             </div>
-                            <button type="submit" className="button is-block is-primary is-fullwidth is-medium">Login</button>
+                            <button 
+                                type="submit" 
+                                className={`button is-block is-primary is-fullwidth is-medium ${loading ? 'is-loading' : ''}`}
+                                >
+                                    Login
+                            </button>
                             <br />
                             <small className="has-text-centered">
                                 <em>

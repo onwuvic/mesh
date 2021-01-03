@@ -13,7 +13,7 @@ const SignupPage = () => {
 
                     <div className="column right">
                         <h1 className="title is-4">Sign Up</h1>
-                        <p className="description">Coming soon! Only pre-defined users can use this app for now</p>
+                        <p className="description">Coming soon! Only pre-defined users can use this app for now, check back later.</p>
                         <form noValidate autoComplete="false">
                             <div className="field">
                                 <div className="control">
