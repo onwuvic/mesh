@@ -38,16 +38,15 @@ class Firebase {
         }
     }
 
-    getAllOrders() {
-        let ordersList: any = [];
-        this.firestore.collection("/orders")
-            .onSnapshot((snapshot: any) => {
-                const listItems = snapshot.docs.map((doc: any) => ({
-                    id: doc.id,
-                    ...doc.data(),
-                }))
-            });
-        console.log('----orders', ordersList);
+    async getOrderById(id: number | string) {
+        const doc = await this.firestore.doc(`orders/${id}`).get();
+        if (doc.exists) {
+            return {
+                ...doc.data()
+            };
+        } else {
+            return null;
+        }
     }
 
     async generateUserDocument(user: any) {
@@ -72,6 +71,18 @@ class Firebase {
         }
         return this.getUserDocument(user.uid);
     }
+
+    // getAllOrders() {
+    //     let ordersList: any = [];
+    //     this.firestore.collection("/orders")
+    //         .onSnapshot((snapshot: any) => {
+    //             const listItems = snapshot.docs.map((doc: any) => ({
+    //                 id: doc.id,
+    //                 ...doc.data(),
+    //             }))
+    //         });
+    //     console.log('----orders', ordersList);
+    // }
 }
 
 export default new Firebase();
