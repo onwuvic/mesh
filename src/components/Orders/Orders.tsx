@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Firebase from '../../helpers/Firebase';
 import Spinner from '../Spinner/Spinner';
 
 const Orders = () => {
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(false);
+
+    let history = useHistory();
 
     useEffect(() => {
         setLoading(true);
@@ -18,6 +21,10 @@ const Orders = () => {
                 setLoading(false);
             });
     }, []);
+
+    const toOrderPage = (id: any) => {
+        history.replace(`/orders/${id}`);
+    }
 
     function renderOrders() {
         if (orders.length === 0 ) {
@@ -37,12 +44,13 @@ const Orders = () => {
                 <tbody>
                      {
                          orders.map((order: any) => (
-                            <tr key={order.id}>
-                                <td>{order.title}</td>
-                                <td>date</td>
-                                <td>street </td>
-                                <td>name</td>
-                            </tr>
+                             
+                                <tr className="is-clickable" key={order.id} onClick={() => { toOrderPage(order.id)}}>
+                                    <td>{order.title}</td>
+                                    <td>date</td>
+                                    <td>street </td>
+                                    <td>name</td>
+                                </tr>
                         ))
                      }
                 </tbody>
