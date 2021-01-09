@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import moment from 'moment';
+import axios from 'axios';
 import Firebase from '../../helpers/Firebase';
 import Spinner from '../Spinner/Spinner';
+import { orderUrl } from '../../config/constant';
 
 const Order = () => {
     const initialState: Record<string, any> = {};
@@ -10,6 +12,7 @@ const Order = () => {
     const [title, setTitle] = useState('');
     const [bookingDate, setBookingDate] = useState('');
     const [error, setError] = useState('');
+    const [inputValid, setInputValid] = useState('');
     const [noDocument, setNoDocument] = useState('');
     const [loading, setLoading] = useState(false);
     const [editMode, setEditMode] = useState(false);
@@ -33,9 +36,34 @@ const Order = () => {
         }
     }
 
-    async function updateOrder(e: any) {
+    function getDateToDisplay(date: string | number ) {
+        return typeof date === 'number' 
+            ? moment.unix(date).format('YYYY-MM-DD')
+            : date
+    }
+
+    async function updateOrder(e: any) {  
         e.preventDefault();
-        console.log('---->', title, bookingDate);
+        setInputValid('');
+        if (!title) {
+            setInputValid('Title is required');
+            return;
+        }
+        if (!bookingDate) {
+            setInputValid('Booking Date is required');
+            return;
+        }
+        
+        setInputValid('');
+        // convert bookingDate value to unixTimestamp
+        const toUnixTimestamp = typeof bookingDate === 'number' ? bookingDate : moment(bookingDate, 'YYYY-MM-DD').unix();
+        try {
+            const { data: { data }} = await axios.put(`${orderUrl}/${id}`, { title, bookingDate: toUnixTimestamp });
+            setTitle(data.title);
+            setBookingDate(data.bookingDate);
+        } catch (error) {
+            setError('Sorry, something went wrong on our end. Try again later');
+        }
     }
 
     function renderContent() {
@@ -47,6 +75,15 @@ const Order = () => {
                             <span className="is-size-5">
                                 Order
                             </span>
+                            {
+                                inputValid && (
+                                    <article className="message is-danger">
+                                        <div className="message-body">
+                                            { inputValid }
+                                        </div>
+                                    </article>
+                                ) 
+                           }
                         </div>
                         {
                             !editMode && (
@@ -88,7 +125,7 @@ const Order = () => {
                                                     type="date"
                                                     onChange={(e) => setBookingDate(e.target.value)}
                                                     onBlur={(e) => setBookingDate(e.target.value)}
-                                                    value={`${ moment.utc(bookingDate).format('YYYY-MM-DD')}`} />
+                                                    value={getDateToDisplay(bookingDate)} />
                                             </div>
                                         </div>
                                     </div>
@@ -217,6 +254,8 @@ const Order = () => {
     }
 
     useEffect(() => {
+        // clear error on page load
+        setInputValid('');
         getOrder(id);
     }, [id]);
 
