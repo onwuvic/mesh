@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import moment from 'moment';
 import axios from 'axios';
 import Firebase from '../../helpers/Firebase';
@@ -61,6 +62,7 @@ const Order = () => {
             const { data: { data }} = await axios.put(`${orderUrl}/${id}`, { title, bookingDate: toUnixTimestamp });
             setTitle(data.title);
             setBookingDate(data.bookingDate);
+            toast.success('Updated Successfully');
         } catch (error) {
             setError('Sorry, something went wrong on our end. Try again later');
         }
