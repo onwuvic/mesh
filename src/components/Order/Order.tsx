@@ -17,6 +17,7 @@ const Order = () => {
     const [noDocument, setNoDocument] = useState('');
     const [loading, setLoading] = useState(false);
     const [editMode, setEditMode] = useState(false);
+    const [editLoading, setEditLoading] = useState(false);
     let { id }: any = useParams();
 
     async function getOrder(id: number | string ) {
@@ -58,12 +59,16 @@ const Order = () => {
         setInputValid('');
         // convert bookingDate value to unixTimestamp
         const toUnixTimestamp = typeof bookingDate === 'number' ? bookingDate : moment(bookingDate, 'YYYY-MM-DD').unix();
+  
         try {
+            setEditLoading(true);
             const { data: { data }} = await axios.put(`${orderUrl}/${id}`, { title, bookingDate: toUnixTimestamp });
             setTitle(data.title);
             setBookingDate(data.bookingDate);
+            setEditLoading(false);
             toast.success('Updated Successfully');
         } catch (error) {
+            setEditLoading(false);
             setError('Sorry, something went wrong on our end. Try again later');
         }
     }
@@ -222,10 +227,10 @@ const Order = () => {
                                 editMode && (
                                     <div className="field is-grouped u-margin-top">
                                         <div className="control">
-                                            <button type="submit" className="button is-primary">Update</button>
+                                            <button type="submit" className={`button is-primary ${editLoading ? 'is-loading' : ''}`}>Update</button>
                                         </div>
                                         <div className="control">
-                                            <button className="button is-link is-light" onClick={() => { setEditMode(false)}}>Cancel</button>
+                                            <button className="button is-light" onClick={() => { setEditMode(false)}}>Cancel</button>
                                         </div>
                                     </div>
                                 )
