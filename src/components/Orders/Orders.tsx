@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Firebase from '../../helpers/Firebase';
+import { formatOrderData } from '../../helpers/utilities';
 import Spinner from '../Spinner/Spinner';
+import Table from '../Table/Table';
 
 const Orders = () => {
-    const [orders, setOrders] = useState([]);
+    const [orders, setOrders] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
 
     let history = useHistory();
@@ -17,10 +19,38 @@ const Orders = () => {
                     id: doc.id,
                     ...doc.data(),
                 }))
-                setOrders(listItems);
+                const formatOrder = formatOrderData(listItems);
+                setOrders(formatOrder);
                 setLoading(false);
             });
     }, []);
+
+    const data = useMemo(
+        () => orders,
+        [orders]
+    )
+
+    const columns = useMemo(
+        () => [
+          {
+            Header: 'Title',
+            accessor: 'title', // accessor is the "key" in the data
+          },
+          {
+            Header: 'Booking Date',
+            accessor: 'bookingDate',
+          },
+          {
+            Header: 'Address',
+            accessor: 'address',
+          },
+          {
+            Header: 'Customer',
+            accessor: 'customer',
+          },
+        ],
+        []
+    )
 
     const toOrderPage = (id: any) => {
         history.replace(`/orders/${id}`);
@@ -32,29 +62,7 @@ const Orders = () => {
         }
 
         return (
-            <table className="table is-fullwidth is-hoverable is-striped u-margin-top">
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Booking Date</th>
-                        <th>Address</th>
-                        <th>Customer</th>
-                    </tr>
-                </thead>
-                <tbody>
-                     {
-                         orders.map((order: any) => (
-                             
-                                <tr className="is-clickable" key={order.id} onClick={() => { toOrderPage(order.id)}}>
-                                    <td>{order.title}</td>
-                                    <td>date</td>
-                                    <td>street </td>
-                                    <td>name</td>
-                                </tr>
-                        ))
-                     }
-                </tbody>
-            </table>
+            <Table columns={columns} data={data} linkToPage={toOrderPage} />
         )
     }
 

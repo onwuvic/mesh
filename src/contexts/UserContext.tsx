@@ -1,11 +1,5 @@
 import { createContext } from 'react';
-
-type User = {
-    email?: string;
-    name?: string;
-    phone?: string | number;
-    uid?: string;
-}
+import { User } from '../models';
 
 const user: User = {};
 
