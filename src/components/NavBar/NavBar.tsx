@@ -6,8 +6,7 @@ import Firebase from '../../helpers/Firebase';
 const NavBar = () => {
     const [mobileMenu, setMobileMenu] = useState(false);
     const user = useContext(UserContext);
-    // const { name } = user
-    // console.log(name);
+    
     let history = useHistory();
 
     const logOut = (): void => {
@@ -42,7 +41,7 @@ const NavBar = () => {
             <div id="navbarBasicExample" className={`navbar-menu ${mobileMenu ? 'is-active' : ''}`}>
                 <div className="navbar-end">
                     <span className="navbar-item">
-                        Hi, Victor
+                        Hi, { user.name }
                     </span>
                     <div className="navbar-item">
                         <span className="button is-primary is-small" onClick={() => { logOut()}}>
