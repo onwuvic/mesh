@@ -21,10 +21,6 @@ class Firebase {
         return this.auth.signOut()
     }
 
-    isInitialized() {
-        return this.auth.onAuthStateChanged()
-    }
-
     async getUserDocument(user: any) {
         if (!user) return null;
         try {
@@ -48,41 +44,6 @@ class Firebase {
             return null;
         }
     }
-
-    async generateUserDocument(user: any) {
-        if (!user) return;
-        console.log('---user', user);
-        const userRef = this.firestore.doc(`users/${user.uid}`);
-        console.log('---->', userRef);
-        const snapshot = await userRef.get();
-        console.log('---snapshoot', snapshot.exists)
-        if (!snapshot.exists) {
-            const { email, name, phone } = user;
-            console.log('---user details', email, name, phone);
-            // try {
-            //     await userRef.set({
-            //         name,
-            //         email,
-            //         phone
-            //     })
-            // } catch (error) {
-            //     console.error("Error creating user document", error);
-            // }
-        }
-        return this.getUserDocument(user.uid);
-    }
-
-    // getAllOrders() {
-    //     let ordersList: any = [];
-    //     this.firestore.collection("/orders")
-    //         .onSnapshot((snapshot: any) => {
-    //             const listItems = snapshot.docs.map((doc: any) => ({
-    //                 id: doc.id,
-    //                 ...doc.data(),
-    //             }))
-    //         });
-    //     console.log('----orders', ordersList);
-    // }
 }
 
 export default new Firebase();
