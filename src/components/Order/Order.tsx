@@ -6,6 +6,7 @@ import axios from 'axios';
 import Firebase from '../../helpers/Firebase';
 import Spinner from '../Spinner/Spinner';
 import { orderUrl } from '../../config/constant';
+import setAuthToken from '../../helpers/setAuthToken';
 
 const Order = () => {
     const initialState: Record<string, any> = {};
@@ -62,6 +63,8 @@ const Order = () => {
   
         try {
             setEditLoading(true);
+            const token = await Firebase.auth.currentUser.getIdToken(true);
+            setAuthToken(token);
             const { data: { data }} = await axios.put(`${orderUrl}/${id}`, { title, bookingDate: toUnixTimestamp });
             setTitle(data.title);
             setBookingDate(data.bookingDate);
