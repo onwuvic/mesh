@@ -3,8 +3,8 @@ import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import moment from 'moment';
 import axios from 'axios';
-import Firebase from '../../helpers/Firebase';
-import Spinner from '../Spinner/Spinner';
+import Firebase from '../../config/firebase';
+import Spinner from '../../components/Spinner/Spinner';
 import { orderUrl } from '../../config/constant';
 import setAuthToken from '../../helpers/setAuthToken';
 
@@ -63,8 +63,7 @@ const Order = () => {
   
         try {
             setEditLoading(true);
-            const token = await Firebase.auth.currentUser.getIdToken(true);
-            setAuthToken(token);
+            setAuthToken(localStorage.getItem('token'));
             const { data: { data }} = await axios.put(`${orderUrl}/${id}`, { title, bookingDate: toUnixTimestamp });
             setTitle(data.title);
             setBookingDate(data.bookingDate);

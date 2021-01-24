@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import LandingPage from '../../components/LandingPage/LandingPage';
-import Firebase from '../../helpers/Firebase';
+import Firebase from '../../config/firebase';
 import validate from '../../helpers/validations/LoginFormValidationRules';
 import useForm from '../../hooks/useForm';
 import './LoginPage.scss';
@@ -20,7 +20,8 @@ const LoginPage = () => {
         setLoading(true);
         setError(null);
         try {
-            await Firebase.logIn(email, password);
+            const { user } = await Firebase.logIn(email, password);
+            localStorage.setItem('token', await user.getIdToken())
             history.replace(from);
         } catch (error) {
             setLoading(false);

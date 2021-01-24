@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
-import Firebase from '../../helpers/Firebase';
+import Firebase from '../../config/firebase';
 
 const NavBar = () => {
     const [mobileMenu, setMobileMenu] = useState(false);
@@ -11,6 +11,7 @@ const NavBar = () => {
 
     const logOut = (): void => {
         Firebase.logOut();
+        
         history.replace('/login') 
     }
 
