@@ -29,6 +29,8 @@ Nodejs > 12.0.0
     > cd mesh
 
 - run `yarn install`
+- create `.env` file and populate it with `.env.sample` values
+- Add the necessary firebase config values in the `.env` file
 - run `yarn start`
 
 
