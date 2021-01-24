@@ -1,18 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Route, Redirect, RouteProps } from 'react-router-dom';
-import { UserContext } from './contexts/UserContext';
+import { isLoggedIn } from './helpers/isLoggedIn';
 
 
 
 const PrivateRoute: React.FC<RouteProps> = ({ children, ...rest }) => {
-    const user = useContext(UserContext);
-
-    function isLoggedIn() {
-        if (!user) {
-            return false;
-        }
-        return true;
-    }
 
     return (
         <Route {...rest} render={props => (

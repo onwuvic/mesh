@@ -1,14 +1,13 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import Firebase from '../../helpers/Firebase';
+import Firebase from '../../config/firebase';
 import { formatOrderData } from '../../helpers/utilities';
-import Spinner from '../Spinner/Spinner';
-import Table from '../Table/Table';
+import Spinner from '../../components/Spinner/Spinner';
+import Table from '../../components/Table/Table';
 
 const Orders = () => {
     const [orders, setOrders] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
-
     let history = useHistory();
 
     useEffect(() => {

@@ -2,8 +2,8 @@ import React from 'react';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import Footer from '../../components/Footer/Footer';
 import NavBar from '../../components/NavBar/NavBar';
-import Order from '../../components/Order/Order';
-import Orders from '../../components/Orders/Orders';
+import Order from '../Order/Order';
+import Orders from '../Orders/Orders';
 import './Home.scss';
 
 
