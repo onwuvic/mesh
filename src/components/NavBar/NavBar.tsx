@@ -42,7 +42,7 @@ const NavBar = () => {
             <div id="navbarBasicExample" className={`navbar-menu ${mobileMenu ? 'is-active' : ''}`}>
                 <div className="navbar-end">
                     <span className="navbar-item">
-                        Hi, { user.name }
+                        Hi, { user?.name }
                     </span>
                     <div className="navbar-item">
                         <span className="button is-primary is-small" onClick={() => { logOut()}}>
