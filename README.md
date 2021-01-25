@@ -21,6 +21,7 @@ Nodejs > 12.0.0
 - On your `terminal` or `CMD`
 - clone the repo
     > git clone git@github.com:onwuvic/mesh.git
+    
     or 
 
     > git clone https://github.com/onwuvic/mesh.git

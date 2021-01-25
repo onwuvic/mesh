@@ -48,11 +48,11 @@ const Order = () => {
     async function updateOrder(e: any) {  
         e.preventDefault();
         setInputValid('');
-        if (!title) {
+        if (!title.trim()) {
             setInputValid('Title is required');
             return;
         }
-        if (!bookingDate) {
+        if (!bookingDate.trim()) {
             setInputValid('Booking Date is required');
             return;
         }

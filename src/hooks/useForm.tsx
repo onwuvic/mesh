@@ -11,8 +11,7 @@ const useForm = (initialValues: any, callback: any, validate: any) => {
         if (Object.keys(errors).length === 0 && isSubmitting) {
             callback();
         }
-        setIsSubmitting(false);
-    }, [errors]);
+    }, [errors, callback, isSubmitting]);
     
     const handleSubmit = (event: any) => {
         if (event) event.preventDefault();
